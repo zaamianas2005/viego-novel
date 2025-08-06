@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viego: The Broken Crown | A Runeterra Novel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cinzel', serif;
+            background-color: #0a0806;
+            color: #e8e0d0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(10, 8, 6, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid #3a2e1f;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #c9aa71, #e8e0d0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(201, 170, 113, 0.3);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #c9aa71;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #e8e0d0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #c9aa71;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(10, 8, 6, 0.7), rgba(10, 8, 6, 0.7)), 
+                        url('https://pbs.twimg.com/media/EsRhKY0UYAEX3nW.jpg:large') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #e8e0d0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: #c9aa71;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #c9aa71, #8a6d3b);
+            color: #0a0806;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Chapters Section */
+        .chapters {
+            padding: 6rem 5%;
+            background-color: #12100e;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #e8e0d0;
+            margin-bottom: 1rem;
+        }
+        
+        .divider {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #c9aa71, #8a6d3b);
+            margin: 0 auto 1.5rem;
+        }
+        
+        .section-header p {
+            color: #c9aa71;
+            font-size: 1.2rem;
+        }
+        
+        .chapter-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .chapter-card {
+            background-color: #1a1715;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #3a2e1f;
+            cursor: pointer;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: #c9aa71;
+        }
+        
+        .chapter-card h3 {
+            font-size: 1.5rem;
+            padding: 1.5rem 1.5rem 0;
+            color: #e8e0d0;
+        }
+        
+        .chapter-card p {
+            padding: 1rem 1.5rem;
+            color: #c9aa71;
+        }
+        
+        .chapter-footer {
+            padding: 1.5rem;
+            background-color: #1e1a16;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .read-more {
+            color: #c9aa71;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-card:hover .read-more {
+            color: #e8e0d0;
+        }
+        
+        /* Chapter Content */
+        .chapter-content {
+            display: none;
+            padding: 6rem 5%;
+            background-color: #12100e;
+            min-height: 100vh;
+        }
+        
+        .chapter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #1a1715;
+            padding: 3rem;
+            border-radius: 8px;
+            border: 1px solid #3a2e1f;
+        }
+        
+        #chapter-title {
+            font-size: 2.2rem;
+            color: #e8e0d0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .chapter-text {
+            font-size: 1.1rem;
+            color: #e8e0d0;
+            line-height: 1.8;
+        }
+        
+        .chapter-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-back {
+            background: none;
+            border: none;
+            color: #c9aa71;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-family: 'Cinzel', serif;
+        }
+        
+        .btn-back:hover {
+            background-color: rgba(201, 170, 113, 0.1);
+            color: #e8e0d0;
+        }
+        
+        /* Characters Section */
+        .characters {
+            padding: 6rem 5%;
+            background-color: #0a0806;
+        }
+        
+        .character-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .character-card {
+            background-color: #12100e;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #3a2e1f;
+            transition: all 0.3s ease;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-color: #c9aa71;
+        }
+        
+        .character-image {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .character-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .character-card:hover .character-image img {
+            transform: scale(1.05);
+        }
+        
+        .character-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(10, 8, 6, 0.9));
+            padding: 1.5rem;
+        }
+        
+        .character-overlay h3 {
+            font-size: 1.8rem;
+            color: #e8e0d0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .character-overlay p {
+            color: #c9aa71;
+            font-style: italic;
+        }
+        
+        .character-info {
+            padding: 1.5rem;
+        }
+        
+        .character-info p {
+            margin-bottom: 1rem;
+            color: #e8e0d0;
+        }
+        
+        .character-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .trait {
+            background-color: #1a1715;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #c9aa71;
+            border: 1px solid #3a2e1f;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 6rem 5%;
+            background-color: #12100e;
+            text-align: center;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .about h3 {
+            font-size: 1.8rem;
+            color: #e8e0d0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about p {
+            color: #e8e0d0;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #0a0806;
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid #3a2e1f;
+        }
+        
+        footer p {
+            color: #c9aa71;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                gap: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .chapter-list, .character-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>VIEGO: THE BROKEN CROWN</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#chapters">Chapters</a></li>
+            <li><a href="#characters">Characters</a></li>
+            <li><a href="#about">Lore</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>A Tale of Love and Ruin</h2>
+            <p>The tragic fall of the Ruined King in the world of Runeterra</p>
+            <a href="#chapters" class="btn">Begin Reading</a>
+        </div>
+    </section>
+
+    <!-- Chapters Section -->
+    <section id="chapters" class="chapters">
+        <div class="section-header">
+            <h2>The Chronicles of Viego</h2>
+            <div class="divider"></div>
+            <p>Follow the descent into madness chapter by chapter</p>
+        </div>
+        <div class="chapter-list">
+            <div class="chapter-card" onclick="showChapter(1)">
+                <h3>Chapter 1: The King in the Mirror</h3>
+                <p>Before the ruin, before the madness—Viego was a man of gold and light.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showChapter(2)">
+                <h3>Chapter 2: The Plague and the Plea</h3>
+                <p>Isolde's illness was sudden and cruel. Viego would defy death itself to save her.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showChapter(3)">
+                <h3>Chapter 3: The Shatter and the Ruin</h3>
+                <p>The Ruination began with a scream. The love he tried to save became his curse.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showChapter(4)">
+                <h3>Chapter 4: The Wraith and the War</h3>
+                <p>Centuries passed. Legends spread. The Ruined King walked again.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter Content Section -->
+    <section id="chapter-content" class="chapter-content" style="display: none;">
+        <div class="chapter-container">
+            <button class="btn-back" onclick="hideChapter()">← Back to Chapters</button>
+            <h2 id="chapter-title"></h2>
+            <div id="chapter-text" class="chapter-text"></div>
+        </div>
+    </section>
+
+    <!-- Characters Section -->
+    <section id="characters" class="characters">
+        <div class="section-header">
+            <h2>Dramatis Personae</h2>
+            <div class="divider"></div>
+            <p>The key figures in Viego's tragic tale</p>
+        </div>
+        <div class="character-gallery">
+            <div class="character-card">
+                <div class="character-image">
+                    <img src="https://a-static.besthdwallpaper.com/the-ruined-king-viego-lol-league-of-legends-wallpaper-2560x1600-95432_7.jpg" alt="Viego">
+                    <div class="character-overlay">
+                        <h3>Viego</h3>
+                        <p>The Ruined King</p>
+                    </div>
+                </div>
+                <div class="character-info">
+                    <p>Once a man of love, now a wraith of sorrow, Viego's obsession doomed an entire kingdom.</p>
+                    <div class="character-traits">
+                        <span class="trait">Obsessive</span>
+                        <span class="trait">Royalty</span>
+                        <span class="trait">Undead</span>
+                    </div>
+                </div>
+            </div>
+            <div class="character-card">
+                <div class="character-image">
+                    <img src="https://static.wikia.nocookie.net/leagueoflegends/images/9/92/Isolde_Render.png/revision/latest?cb=20210808101800" alt="Isolde">
+                    <div class="character-overlay">
+                        <h3>Isolde</h3>
+                        <p>The Lost Queen</p>
+                    </div>
+                </div>
+                <div class="character-info">
+                    <p>Her death shattered Viego's sanity and unleashed the Ruination across Runeterra.</p>
+                    <div class="character-traits">
+                        <span class="trait">Gentle</span>
+                        <span class="trait">Artistic</span>
+                        <span class="trait">Cursed</span>
+                    </div>
+                </div>
+            </div>
+            <div class="character-card">
+                <div class="character-image">
+                    <img src="https://r2.rankedkings.com/lol/tiles/412027.jpg" alt="Thresh">
+                    <div class="character-overlay">
+                        <h3>Thresh</h3>
+                        <p>The Chain Warden</p>
+                    </div>
+                </div>
+                <div class="character-info">
+                    <p>A sadistic jailer of souls who thrives in the chaos of the Ruination.</p>
+                    <div class="character-traits">
+                        <span class="trait">Sadistic</span>
+                        <span class="trait">Manipulative</span>
+                        <span class="trait">Malevolent</span>
+                    </div>
+                </div>
+            </div>
+            <div class="character-card">
+                <div class="character-image">
+                    <img src="https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/characters/lucian/skins/skin01/images/lucian_splash_tile_1.jpg" alt="Lucian">
+                    <div class="character-overlay">
+                        <h3>Lucian</h3>
+                        <p>The Purifier</p>
+                    </div>
+                </div>
+                <div class="character-info">
+                    <p>A Sentinel of Light sworn to end Viego's reign and stop the Ruination.</p>
+                    <div class="character-traits">
+                        <span class="trait">Determined</span>
+                        <span class="trait">Loving</span>
+                        <span class="trait">Hopeful</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-header">
+            <h2>The Lore of Camavor</h2>
+            <div class="divider"></div>
+            <p>Explore the world behind the tragedy</p>
+        </div>
+        <div class="about-content">
+            <h3>The Fall of a Kingdom</h3>
+            <p>"Viego: The Broken Crown" is a dark fantasy novel set in the world of League of Legends' Runeterra. It explores the tragic fall of King Viego, his descent into madness, and the catastrophic Ruination that followed.</p>
+            <p>The story begins in the shining kingdom of Camavor, where young Viego inherits a throne he never wanted. His love for Isolde, a seamstress from a distant land, becomes both his salvation and his damnation.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Viego: The Broken Crown. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Chapter content
+        const chapters = {
+            1: {
+                title: "Chapter 1: The King in the Mirror",
+                content: `
+                    <p>Before the ruin, before the madness, and before the darkness swallowed his heart—Viego was a man of gold and light. Crowned at a young age, unready for the burden of power, the kingdom of Camavor rested heavily on his shoulders. The court whispered of his unworthiness. The generals eyed the throne with quiet ambition. And yet, in the middle of this storm, came Isolde—a foreigner with eyes like moonlight and laughter that silenced kings.</p>
+                    
+                    <p>Viego fell not into power, but into love.</p>
+                    
+                    <p>"Let the world crumble," he had once said, "if only she would smile."</p>
+                    
+                    <p>It was said that when Viego walked through the palace gardens, a thousand white roses bloomed in his path—an old Camavoran myth tied to monarchs favored by fate. But it wasn't fate. It was obsession. A love so pure that it rotted the soul when denied.</p>
+                `
+            },
+            2: {
+                title: "Chapter 2: The Plague and the Plea",
+                content: `
+                    <p>Isolde's illness was sudden and cruel. The best alchemists of Piltover, the wisest monks of Ionia, and the most desperate mages from Zaun—all failed. Her skin withered, her breath became shallow, and Camavor watched its queen fade like fog at dawn.</p>
+                    
+                    <p>But Viego refused to grieve.</p>
+                    
+                    <p>In the vaults of the royal archives, beneath layers of forbidden magic, the king found the answer to death: the Waters of Life from the Blessed Isles. No mortal was allowed access. It was sacred, hidden by the protectors of the Sentinels of Light. But Viego was not just a man anymore—he was a king, a husband, and a storm waiting to break.</p>
+                    
+                    <p>The invasion of the Blessed Isles was swift and violent. The Isles burned in sacred fire, its people falling to steel and shadow. In the heart of the island, deep within the Sanctum of the Waters, Viego placed Isolde's body into the divine pool.</p>
+                    
+                    <p>And for a moment, the world stopped.</p>
+                    
+                    <p>She opened her eyes.</p>
+                    
+                    <p>And screamed.</p>
+                `
+            },
+            3: {
+                title: "Chapter 3: The Shatter and the Ruin",
+                content: `
+                    <p>Her scream cracked the heavens. The divine waters, never meant for mortals, reacted with violent magic. Light turned black. Hope became rot. And Viego... changed.</p>
+                    
+                    <p>The Ruination began there. The love he tried to save became the curse that damned him.</p>
+                    
+                    <p>His body was torn apart and rebuilt by shadow. His heart no longer beat. He wandered Runeterra, a ghost bound by a broken soul, endlessly whispering Isolde's name. The Black Mist followed him—infecting cities, killing crops, twisting minds. What once was Camavor's king had become the death of nations.</p>
+                `
+            },
+            4: {
+                title: "Chapter 4: The Wraith and the War",
+                content: `
+                    <p>Centuries passed.</p>
+                    
+                    <p>Legends spread of the Ruined King. Of a ghost with emerald eyes searching for a soul he could never reach. The Sentinels rose again to fight him. Demacia, Noxus, Ionia—all felt the breath of the Mist.</p>
+                    
+                    <p>And yet, Viego remembered none of it. His mind was broken. All he saw was her—glimpses in the dark, pieces of a shattered mirror. Isolde's soul, now scattered across Runeterra, was calling to him.</p>
+                    
+                    <p>If he could find her pieces... he could bring her back.</p>
+                    
+                    <p>And he would tear the world apart to do it.</p>
+                `
+            }
+        };
+
+        // Show chapter function
+        function showChapter(chapterNumber) {
+            const chapterContent = document.getElementById('chapter-content');
+            const chapterTitle = document.getElementById('chapter-title');
+            const chapterText = document.getElementById('chapter-text');
+            
+            // Hide all sections except the chapter content
+            document.querySelectorAll('section').forEach(section => {
+                if (section.id !== 'chapter-content') {
+                    section.style.display = 'none';
+                }
+            });
+            
+            // Show the selected chapter
+            chapterContent.style.display = 'block';
+            chapterTitle.textContent = chapters[chapterNumber].title;
+            chapterText.innerHTML = chapters[chapterNumber].content;
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Hide chapter function
+        function hideChapter() {
+            const chapterContent = document.getElementById('chapter-content');
+            
+            // Show all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'block';
+            });
+            
+            // Hide chapter content
+            chapterContent.style.display = 'none';
+            
+            // Scroll to chapters section
+            document.getElementById('chapters').scrollIntoView();
+        }
+    </script>
+</body>
+</html>

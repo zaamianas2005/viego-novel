@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viego: The Broken Crown | A Runeterra Novel</title>
+    <title>Anas Novel</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&display=swap" rel="stylesheet">
     <style>
         /* Reset and Base Styles */
@@ -404,19 +404,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="logo">
-            <h1>VIEGO: THE BROKEN CROWN</h1>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#chapters">Chapters</a></li>
-            <li><a href="#characters">Characters</a></li>
-            <li><a href="#about">Lore</a></li>
-        </ul>
-    </nav>
-
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
@@ -570,6 +557,7 @@
     <!-- Footer -->
     <footer>
         <p>&copy; 2023 Viego: The Broken Crown. All rights reserved.</p>
+        <p>Site by Anas Zaami (<a href="https://instagram.com/fly_ethr" target="_blank" style="color:#c9aa71;">@fly_ethr</a>) &mdash; Dedicated to Asmaa ❤️</p>
     </footer>
 
     <script>
@@ -657,9 +645,13 @@
         function hideChapter() {
             const chapterContent = document.getElementById('chapter-content');
             
-            // Show all sections
+            // Show all sections with their original display style
             document.querySelectorAll('section').forEach(section => {
-                section.style.display = 'block';
+                if (section.classList.contains('hero')) {
+                    section.style.display = 'flex'; // Restore flex for hero section
+                } else {
+                    section.style.display = 'block';
+                }
             });
             
             // Hide chapter content

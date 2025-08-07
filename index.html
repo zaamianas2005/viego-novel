@@ -756,15 +756,19 @@
 
     <!-- About Section -->
     <section id="about" class="about">
-        <div class="section-header">
-            <h2>The Lore of Camavor</h2>
+        <div class="section-header" id="about-header">
+            <h2 id="about-title">The Lore of Camavor</h2>
             <div class="divider"></div>
-            <p>Explore the world behind the tragedy</p>
+            <p id="about-desc">Explore the world behind the tragedy</p>
         </div>
-        <div class="about-content">
-            <h3>The Fall of a Kingdom</h3>
-            <p>"Viego: The Broken Crown" is a dark fantasy novel set in the world of League of Legends' Runeterra. It explores the tragic fall of King Viego, his descent into madness, and the catastrophic Ruination that followed.</p>
-            <p>The story begins in the shining kingdom of Camavor, where young Viego inherits a throne he never wanted. His love for Isolde, a seamstress from a distant land, becomes both his salvation and his damnation.</p>
+        <div class="about-content" id="about-content">
+            <h3 id="about-subtitle">The Fall of a Kingdom</h3>
+            <p id="about-main">
+                "Viego: The Broken Crown" is a dark fantasy novel set in the world of League of Legends' Runeterra. It explores the tragic fall of King Viego, his descent into madness, and the catastrophic Ruination that followed.
+            </p>
+            <p id="about-extra">
+                The story begins in the shining kingdom of Camavor, where young Viego inherits a throne he never wanted. His love for Isolde, a seamstress from a distant land, becomes both his salvation and his damnation.
+            </p>
         </div>
     </section>
 
@@ -1004,9 +1008,17 @@
                 section.style.display = 'none';
             });
             document.getElementById('home').style.display = 'flex';
-            document.getElementById('about').style.display = 'block';
 
+            // About section logic
             if (novel === 'viego') {
+                document.getElementById('about-title').textContent = "The Lore of Camavor";
+                document.getElementById('about-desc').textContent = "Explore the world behind the tragedy";
+                document.getElementById('about-subtitle').textContent = "The Fall of a Kingdom";
+                document.getElementById('about-main').textContent =
+                    "\"Viego: The Broken Crown\" is a dark fantasy novel set in the world of League of Legends' Runeterra. It explores the tragic fall of King Viego, his descent into madness, and the catastrophic Ruination that followed.";
+                document.getElementById('about-extra').textContent =
+                    "The story begins in the shining kingdom of Camavor, where young Viego inherits a throne he never wanted. His love for Isolde, a seamstress from a distant land, becomes both his salvation and his damnation.";
+                document.getElementById('about').style.display = 'block';
                 document.getElementById('chapters').style.display = 'block';
                 document.getElementById('characters').style.display = 'block';
                 document.getElementById('chapter-content').style.display = 'none';
@@ -1015,6 +1027,14 @@
                 document.getElementById('asmaa-novel').style.display = 'none';
                 document.getElementById('chapters').scrollIntoView({ behavior: 'smooth' });
             } else if (novel === 'asmaa') {
+                document.getElementById('about-title').textContent = "The Lore of Soulmates";
+                document.getElementById('about-desc').textContent = "Discover the journey of Asmaa & Anas";
+                document.getElementById('about-subtitle').textContent = "The Story of Two Hearts";
+                document.getElementById('about-main').textContent =
+                    "\"Asmaa & Anas: Soulmates\" is a heartfelt novel about two souls who meet, heal, and grow together. It explores love, hope, and the power of believing in each other.";
+                document.getElementById('about-extra').textContent =
+                    "Their story begins with a chance meeting and blossoms into a journey of trust, resilience, and dreams shared between two companions.";
+                document.getElementById('about').style.display = 'block';
                 document.getElementById('asmaa-novel').style.display = 'block';
                 document.getElementById('asmaa-characters').style.display = 'block';
                 document.getElementById('chapter-content').style.display = 'none';

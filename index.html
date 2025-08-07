@@ -124,6 +124,14 @@
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
         }
         
+        /* Add this to your <style> section for better button appearance */
+        #novel-selector .btn {
+            min-width: 220px;
+            font-size: 1.15rem;
+            margin: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
         /* Chapters Section */
         .chapters {
             padding: 6rem 5%;
@@ -293,6 +301,17 @@
             transition: transform 0.5s ease;
         }
         
+        /* Add this to your <style> section to adjust the image position for Anas */
+        .character-image img[alt="Anas"] {
+            object-position: center 25%;
+        }
+        
+        /* Move the image down a bit for Asmaa & Anas cards */
+        .character-image img[alt="Asmaa"],
+        .character-image img[alt="Anas"] {
+            object-position: center 15%;
+        }
+        
         .character-card:hover .character-image img {
             transform: scale(1.05);
         }
@@ -422,6 +441,10 @@
             <h2>A Tale of Love and Ruin</h2>
             <p>The tragic fall of the Ruined King in the world of Runeterra</p>
             <a href="#chapters" class="btn">Begin Reading</a>
+            <div id="novel-selector" style="margin-top:30px; display: flex; justify-content: center; gap: 20px;">
+                <button class="btn" onclick="showNovel('viego')" id="btn-viego">Viego: The Broken Crown</button>
+                <button class="btn" onclick="showNovel('asmaa')" id="btn-asmaa">Asmaa & Anas: Soulmates</button>
+            </div>
         </div>
     </section>
 
@@ -461,6 +484,55 @@
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
+            <div class="chapter-card" onclick="showChapter(5)">
+                <h3>Chapter 5: The Pieces of Her</h3>
+                <p>The world was vast, but his pain was greater. Viego hunted whispers of her soul across Runeterra.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showChapter(6)">
+                <h3>Chapter 6: The Puppet with Scissors</h3>
+                <p>In a forgotten village, Gwen awakens—Isolde’s creation, wielding the Hallowed Mist against ruin.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showChapter(7)">
+                <h3>Chapter 7: Lucian’s Shadow</h3>
+                <p>Lucian and Senna rally the Sentinels, seeking to save Viego from the Mist and himself.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showChapter(8)">
+                <h3>Chapter 8: Thresh’s Game</h3>
+                <p>Thresh manipulates fate from the shadows, holding the final fragment of Isolde’s soul.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showChapter(9)">
+                <h3>Chapter 9: The Last Fragment</h3>
+                <p>The final piece of Isolde’s soul. The fate of Runeterra hangs in the balance.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showChapter(10)">
+                <h3>Chapter 10: Crown of Ash</h3>
+                <p>The end of the Ruined King’s journey. Love, loss, and the breaking of the curse.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showChapter(11)">
+                <h3>Epilogue: The Garden Restored</h3>
+                <p>After ruin, hope. The world heals, and Viego’s story becomes legend.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -473,7 +545,55 @@
         </div>
     </section>
 
-    <!-- Characters Section -->
+    <!-- Asmaa Novel Section (Hidden by Default) -->
+    <section id="asmaa-novel" class="chapters" style="display:none;">
+        <div class="section-header">
+            <h2>Asmaa & Anas: Soulmates</h2>
+            <div class="divider"></div>
+            <p>A story of two souls who meet and love each other deeply</p>
+        </div>
+        <div class="chapter-list">
+            <div class="chapter-card" onclick="showAsmaaChapter(1)">
+                <h3>Chapter 1: The Meeting</h3>
+                <p>Asmaa and Anas meet by chance, and the world feels new.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showAsmaaChapter(2)">
+                <h3>Chapter 2: Soul Connection</h3>
+                <p>They discover a bond that feels destined, deeper than words.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showAsmaaChapter(3)">
+                <h3>Chapter 3: Love Grows</h3>
+                <p>Through laughter and tears, their love grows stronger every day.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+            <div class="chapter-card" onclick="showAsmaaChapter(4)">
+                <h3>Epilogue: Forever Together</h3>
+                <p>Asmaa and Anas, soulmates, walk through life hand in hand.</p>
+                <div class="chapter-footer">
+                    <span class="read-more">Read Chapter</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Asmaa Chapter Content Section (Hidden by Default) -->
+    <section id="asmaa-chapter-content" class="chapter-content" style="display:none;">
+        <div class="chapter-container">
+            <button class="btn-back" onclick="hideAsmaaChapter()">← Back to Chapters</button>
+            <h2 id="asmaa-chapter-title"></h2>
+            <div id="asmaa-chapter-text" class="chapter-text"></div>
+        </div>
+    </section>
+
+    <!-- Characters Section: Viego Novel -->
     <section id="characters" class="characters">
         <div class="section-header">
             <h2>Dramatis Personae</h2>
@@ -552,6 +672,51 @@
         </div>
     </section>
 
+    <!-- Dramatis Personae: Asmaa & Anas Novel -->
+    <section id="asmaa-characters" class="characters" style="display:none;">
+        <div class="section-header">
+            <h2>Dramatis Personae: Asmaa & Anas</h2>
+            <div class="divider"></div>
+            <p>The key figures in the Soulmates novel</p>
+        </div>
+        <div class="character-gallery">
+            <div class="character-card">
+                <div class="character-image">
+                    <img src="https://i.pinimg.com/1200x/1b/cf/3d/1bcf3dc18be57d442c7749d7189a51e1.jpg" alt="Asmaa">
+                    <div class="character-overlay">
+                        <h3>Asmaa</h3>
+                        <p>The Heart of the Story</p>
+                    </div>
+                </div>
+                <div class="character-info">
+                    <p>Case: Asmaa faces the challenge of believing in herself and opening her heart after past pain. Her journey is about healing, hope, and rediscovering love.</p>
+                    <div class="character-traits">
+                        <span class="trait">Empathetic</span>
+                        <span class="trait">Dreamer</span>
+                        <span class="trait">Resilient</span>
+                    </div>
+                </div>
+            </div>
+            <div class="character-card">
+                <div class="character-image">
+                    <img src="https://i.pinimg.com/736x/bb/a3/48/bba3482adcdc87d8a8e19c9e31aa2b18.jpg" alt="Anas">
+                    <div class="character-overlay">
+                        <h3>Anas</h3>
+                        <p>The Loyal Companion</p>
+                    </div>
+                </div>
+                <div class="character-info">
+                    <p>Case: Anas must learn to trust, support, and grow alongside Asmaa. His story is about loyalty, overcoming doubt, and building a future together.</p>
+                    <div class="character-traits">
+                        <span class="trait">Supportive</span>
+                        <span class="trait">Loyal</span>
+                        <span class="trait">Optimistic</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="about" class="about">
         <div class="section-header">
@@ -573,17 +738,14 @@
     </footer>
 
     <script>
-        // Chapter content
+        // Viego chapters
         const chapters = {
             1: {
                 title: "Chapter 1: The King in the Mirror",
                 content: `
                     <p>Before the ruin, before the madness, and before the darkness swallowed his heart—Viego was a man of gold and light. Crowned at a young age, unready for the burden of power, the kingdom of Camavor rested heavily on his shoulders. The court whispered of his unworthiness. The generals eyed the throne with quiet ambition. And yet, in the middle of this storm, came Isolde—a foreigner with eyes like moonlight and laughter that silenced kings.</p>
-                    
                     <p>Viego fell not into power, but into love.</p>
-                    
                     <p>"Let the world crumble," he had once said, "if only she would smile."</p>
-                    
                     <p>It was said that when Viego walked through the palace gardens, a thousand white roses bloomed in his path—an old Camavoran myth tied to monarchs favored by fate. But it wasn't fate. It was obsession. A love so pure that it rotted the soul when denied.</p>
                 `
             },
@@ -591,17 +753,11 @@
                 title: "Chapter 2: The Plague and the Plea",
                 content: `
                     <p>Isolde's illness was sudden and cruel. The best alchemists of Piltover, the wisest monks of Ionia, and the most desperate mages from Zaun—all failed. Her skin withered, her breath became shallow, and Camavor watched its queen fade like fog at dawn.</p>
-                    
                     <p>But Viego refused to grieve.</p>
-                    
                     <p>In the vaults of the royal archives, beneath layers of forbidden magic, the king found the answer to death: the Waters of Life from the Blessed Isles. No mortal was allowed access. It was sacred, hidden by the protectors of the Sentinels of Light. But Viego was not just a man anymore—he was a king, a husband, and a storm waiting to break.</p>
-                    
                     <p>The invasion of the Blessed Isles was swift and violent. The Isles burned in sacred fire, its people falling to steel and shadow. In the heart of the island, deep within the Sanctum of the Waters, Viego placed Isolde's body into the divine pool.</p>
-                    
                     <p>And for a moment, the world stopped.</p>
-                    
                     <p>She opened her eyes.</p>
-                    
                     <p>And screamed.</p>
                 `
             },
@@ -609,68 +765,227 @@
                 title: "Chapter 3: The Shatter and the Ruin",
                 content: `
                     <p>Her scream cracked the heavens. The divine waters, never meant for mortals, reacted with violent magic. Light turned black. Hope became rot. And Viego... changed.</p>
-                    
                     <p>The Ruination began there. The love he tried to save became the curse that damned him.</p>
-                    
-                    <p>His body was torn apart and rebuilt by shadow. His heart no longer beat. He wandered Runeterra, a ghost bound by a broken soul, endlessly whispering Isolde's name. The Black Mist followed him—infecting cities, killing crops, twisting minds. What once was Camavor's king had become the death of nations.</p>
+                   
                 `
             },
             4: {
                 title: "Chapter 4: The Wraith and the War",
                 content: `
                     <p>Centuries passed.</p>
-                    
                     <p>Legends spread of the Ruined King. Of a ghost with emerald eyes searching for a soul he could never reach. The Sentinels rose again to fight him. Demacia, Noxus, Ionia—all felt the breath of the Mist.</p>
-                    
                     <p>And yet, Viego remembered none of it. His mind was broken. All he saw was her—glimpses in the dark, pieces of a shattered mirror. Isolde's soul, now scattered across Runeterra, was calling to him.</p>
-                    
                     <p>If he could find her pieces... he could bring her back.</p>
-                    
                     <p>And he would tear the world apart to do it.</p>
+                `
+            },
+            5: {
+                title: "Chapter 5: The Pieces of Her",
+                content: `
+                    <p>The world was vast, but his pain was greater.<br>
+                    From the frost-covered halls of Freljord to the burning sands of Shurima, Viego hunted whispers of her soul.</p>
+                    <p>The first shard was found in a village swallowed by the Mist. A small girl had been dreaming of a woman with silver hair and sorrowful eyes. When Viego touched her, the dream turned to ash—and he felt a fragment of Isolde return to him, faint but real.</p>
+                    <p>“She calls to me,” he murmured to no one, his voice like cracked marble. “And I will answer.”</p>
+                    <p>But each fragment taken left ruin in its wake. Towns were left lifeless. Trees wilted. Rivers darkened. The Black Mist obeyed his will, but also fed on his rage. Viego no longer walked—he floated, driven by magic and mourning. A ghost crowned by guilt.</p>
+                    <p>The Sentinels knew: the Ruination was not over. It had just begun again.</p>
+                `
+            },
+            6: {
+                title: "Chapter 6: The Puppet with Scissors",
+                content: `
+                    <p>In a forgotten village overgrown with vines and moonflowers, a strange light resisted the Mist.<br>
+                    There, a doll stirred—a creation of Isolde’s last days. Her name was Gwen.</p>
+                    <p>Infused with the soul and memories of the queen she once served, Gwen wielded the Hallowed Mist, the only magic untouched by corruption. Where Viego’s blackened Mist brought decay, hers brought life and clarity.</p>
+                    <p>She remembered only fragments. A wedding dress. Laughter in the gardens. A king who looked at Isolde as if the stars had bent for her alone.</p>
+                    <p>When Viego arrived, Gwen did not flee.<br>
+                    She stood in the garden with scissors glowing in hand and said, “You loved her. I loved her. But what you’ve become is not love—it’s ruin.”</p>
+                    <p>They fought beneath a sky split in half—one side dark with ruin, the other lit by memory.<br>
+                    And Gwen escaped. But not before seeing the sadness in his eyes… the truth behind the monster.</p>
+                `
+            },
+            7: {
+                title: "Chapter 7: Lucian’s Shadow",
+                content: `
+                    <p>Lucian, the gunslinger, once chased shadows for justice. But now, he hunted only one ghost—the man who had taken Senna’s soul into darkness.</p>
+                    <p>Together with Senna, who had been freed from Thresh’s lantern but not from pain, they traveled across ruined lands, rallying the Sentinels of Light once again.</p>
+                    <p>“We don’t need to kill him,” Senna said one night by firelight. “We need to stop him. To reach what’s left of the man.”</p>
+                    <p>Lucian gritted his teeth. “There’s nothing left.”</p>
+                    <p>But Senna had seen something in the Mist—an image of Isolde, eyes wide with fear, and a faint whisper:<br>
+                    “He’s not whole. He cannot control it.”</p>
+                    <p>The war was no longer just against Viego. It was against the Mist itself, a force that used the king as its host. They would need allies. Magic. And hope. But time was running out.</p>
+                `
+            },
+            8: {
+                title: "Chapter 8: Thresh’s Game",
+                content: `
+                    <p>In the deepest crypts of the Shadow Isles, a twisted lantern flickered.<br>
+                    Thresh, the Chain Warden, laughed.</p>
+                    <p>He had waited centuries, feeding on souls, manipulating fates. It was he who had manipulated Viego, nudged the king toward madness, and whispered lies into the sanctum that day Isolde was revived. Not for love—but for power.</p>
+                    <p>“The king thinks he commands the Mist,” Thresh hissed, speaking to the shadows. “But soon… it will command him.”</p>
+                    <p>Within his lantern danced a final fragment of Isolde—a piece Viego would never find, no matter how many lands he shattered.</p>
+                    <p>Thresh didn’t want to stop the Ruination. He wanted to finish it.<br>
+                    With Viego as a puppet.</p>
+                    <p>And when the final tear was shed and all of Runeterra was cloaked in death, it would be Thresh—not Viego—who would reign.</p>
+                `
+            },
+            9: {
+                title: "Chapter 9: The Last Fragment",
+                content: `
+                    <p>The Black Mist swelled across Runeterra like a rising tide.</p>
+                    <p>Viego stood at the edge of the Howling Abyss, the cold winds of the Freljord slicing through what little remained of his human form. His crown was tarnished. His robes, once royal, now flowed like tattered shadows.</p>
+                    <p>He had found all but one piece of Isolde’s soul.</p>
+                    <p>He could feel it—just beyond reach. His hands trembled as he whispered her name, over and over, like a dying prayer.</p>
+                    <p>“Isolde… I’m so close. Please…”</p>
+                    <p>Behind him, the Sentinels gathered.</p>
+                    <p>Lucian, Senna, Gwen, and a dozen warriors stood in silence. The world had watched Viego tear down everything in his path. But this moment… this final step… would decide whether the world ended or lived.</p>
+                    <p>Thresh appeared from the shadows, grinning behind his mask of chains.</p>
+                    <p>“You poor fool,” the Warden hissed. “You were never the king. You were the key.”</p>
+                    <p>With a flick of his lantern, he unleashed the last fragment of Isolde’s soul—but twisted, corrupted by centuries of torment. It floated toward Viego like a flame in a storm.</p>
+                    <p>The king reached for it.</p>
+                    <p>Gwen screamed, “No! It’s not her! She wouldn’t want this!”</p>
+                    <p>But he didn’t listen.</p>
+                    <p>The moment he touched it—the world shattered.</p>
+                `
+            },
+            10: {
+                title: "Chapter 10: Crown of Ash",
+                content: `
+                    <p>The Mist exploded outward, a shockwave of pure darkness.</p>
+                    <p>The sky cracked.</p>
+                    <p>Mountains groaned.</p>
+                    <p>And Viego was lost in a dream.</p>
+                    <p>He stood in the palace garden. The roses were white again. The wind was soft. And Isolde stood before him, untouched by time, smiling like she had the first day they met.</p>
+                    <p>“You came for me,” she whispered.</p>
+                    <p>He ran to her, tears in his eyes, but when he touched her cheek… his hand passed through.</p>
+                    <p>“You’re not real,” he choked.<br>
+                    “No,” she said gently, “but your love was. It just became something it was never meant to be.”</p>
+                    <p>Isolde leaned in. A kiss that never reached his lips. A goodbye that echoed across eternity.</p>
+                    <p>And with that, the illusion collapsed.</p>
+                    <p>In the real world, the Mist reversed.<br>
+                    The fragments of Isolde’s soul reunited—and then vanished, finally freed.</p>
+                    <p>The black crown on Viego’s head cracked.<br>
+                    He fell to his knees, alone at last.</p>
+                    <p>Lucian lowered his weapon.</p>
+                    <p>Senna whispered a prayer.</p>
+                    <p>And Gwen, with tears in her eyes, stepped forward and closed the king’s eyes as he faded into shadow.</p>
+                    <p>“He was never the villain,” she said.<br>
+                    “Just a man… who couldn’t let go.”</p>
+                `
+            },
+            11: {
+                title: "Epilogue: The Garden Restored",
+                content: `
+                    <p>Years passed.</p>
+                    <p>The Shadow Isles began to heal.</p>
+                    <p>Gwen tended to the wild gardens that once belonged to Isolde. Lucian and Senna continued to fight for the light, and Thresh... vanished into the dark, waiting for the next soul to twist.</p>
+                    <p>No statue was built for Viego.</p>
+                    <p>No songs sung in his name.</p>
+                    <p>But in the quiet places of Runeterra, when the moon is full and the mist rises, some still hear the weeping of a king who lost everything to his own heart.</p>
                 `
             }
         };
 
-        // Show chapter function
+        // Asmaa & Anas chapters
+        const asmaaChapters = {
+            1: {
+                title: "Chapter 1: The Meeting",
+                content: `<p>Asmaa and Anas met on a quiet afternoon, their eyes locking in a moment that felt like fate. The world seemed to pause, and in that instant, two souls recognized each other.</p>`
+            },
+            2: {
+                title: "Chapter 2: Soul Connection",
+                content: `<p>As they talked, laughed, and shared dreams, Asmaa and Anas discovered a connection deeper than words. It was as if their hearts had known each other forever.</p>`
+            },
+            3: {
+                title: "Chapter 3: Love Grows",
+                content: `<p>Through every challenge and every joy, their love grew stronger. They supported each other, learned together, and found happiness in the simplest moments.</p>`
+            },
+            4: {
+                title: "Epilogue: Forever Together",
+                content: `<p>Hand in hand, Asmaa and Anas walked through life as soulmates. Their love was a light that never faded, a story that would last forever.</p>`
+            }
+        };
+
+        // Show Viego chapter
         function showChapter(chapterNumber) {
-            const chapterContent = document.getElementById('chapter-content');
-            const chapterTitle = document.getElementById('chapter-title');
-            const chapterText = document.getElementById('chapter-text');
-            
-            // Hide all sections except the chapter content
             document.querySelectorAll('section').forEach(section => {
-                if (section.id !== 'chapter-content') {
-                    section.style.display = 'none';
-                }
+                if (section.id !== 'chapter-content') section.style.display = 'none';
             });
-            
-            // Show the selected chapter
-            chapterContent.style.display = 'block';
-            chapterTitle.textContent = chapters[chapterNumber].title;
-            chapterText.innerHTML = chapters[chapterNumber].content;
-            
-            // Scroll to top
+            document.getElementById('chapter-content').style.display = 'block';
+            document.getElementById('chapter-title').textContent = chapters[chapterNumber].title;
+            document.getElementById('chapter-text').innerHTML = chapters[chapterNumber].content;
             window.scrollTo(0, 0);
         }
 
-        // Hide chapter function
+        // Hide Viego chapter
         function hideChapter() {
-            const chapterContent = document.getElementById('chapter-content');
-            
-            // Show all sections with their original display style
             document.querySelectorAll('section').forEach(section => {
                 if (section.classList.contains('hero')) {
-                    section.style.display = 'flex'; // Restore flex for hero section
-                } else {
+                    section.style.display = 'flex';
+                } else if (section.id === 'chapters') {
                     section.style.display = 'block';
+                } else if (section.id === 'characters' || section.id === 'about') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
                 }
             });
-            
-            // Hide chapter content
-            chapterContent.style.display = 'none';
-            
-            // Scroll to chapters section
+            document.getElementById('chapter-content').style.display = 'none';
             document.getElementById('chapters').scrollIntoView();
+        }
+
+        // Show Asmaa chapter
+        function showAsmaaChapter(chapterNumber) {
+            document.querySelectorAll('section').forEach(section => {
+                if (section.id !== 'asmaa-chapter-content') section.style.display = 'none';
+            });
+            document.getElementById('asmaa-chapter-content').style.display = 'block';
+            document.getElementById('asmaa-chapter-title').textContent = asmaaChapters[chapterNumber].title;
+            document.getElementById('asmaa-chapter-text').innerHTML = asmaaChapters[chapterNumber].content;
+            window.scrollTo(0, 0);
+        }
+
+        // Hide Asmaa chapter
+        function hideAsmaaChapter() {
+            document.querySelectorAll('section').forEach(section => {
+                if (section.classList.contains('hero')) {
+                    section.style.display = 'flex';
+                } else if (section.id === 'asmaa-novel') {
+                    section.style.display = 'block';
+                } else if (section.id === 'asmaa-characters' || section.id === 'about') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+            document.getElementById('asmaa-chapter-content').style.display = 'none';
+            document.getElementById('asmaa-novel').scrollIntoView();
+        }
+
+        // Novel switcher
+        function showNovel(novel) {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById('home').style.display = 'flex';
+            document.getElementById('about').style.display = 'block';
+
+            if (novel === 'viego') {
+                document.getElementById('chapters').style.display = 'block';
+                document.getElementById('characters').style.display = 'block';
+                document.getElementById('chapter-content').style.display = 'none';
+                document.getElementById('asmaa-chapter-content').style.display = 'none';
+                document.getElementById('asmaa-characters').style.display = 'none';
+                document.getElementById('asmaa-novel').style.display = 'none';
+                document.getElementById('chapters').scrollIntoView({ behavior: 'smooth' });
+            } else if (novel === 'asmaa') {
+                document.getElementById('asmaa-novel').style.display = 'block';
+                document.getElementById('asmaa-characters').style.display = 'block';
+                document.getElementById('chapter-content').style.display = 'none';
+                document.getElementById('asmaa-chapter-content').style.display = 'none';
+                document.getElementById('characters').style.display = 'none';
+                document.getElementById('chapters').style.display = 'none';
+                document.getElementById('asmaa-novel').scrollIntoView({ behavior: 'smooth' });
+            }
         }
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7336372781083421"

@@ -783,13 +783,8 @@
     </footer>
 
     <!-- Replace your <audio> tag with this div (put it before </body>) -->
-<div id="asmaa-music-player" style="display:none; text-align:center; margin: 30px 0;">
-    <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/tearsofmysuicide/cut-yourself&color=%23c9aa71&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
-    </iframe>
-    <div style="font-size:0.9rem; color:#c9aa71; margin-top:8px;">
-        <a href="https://soundcloud.com/tearsofmysuicide/cut-yourself" target="_blank" style="color:#c9aa71;">Cut Yourself Beyond Melancholy</a> on SoundCloud
-    </div>
+<div id="asmaa-music-player" style="width:1px;height:1px;overflow:hidden;opacity:0;position:absolute;left:-9999px;top:-9999px;">
+    <!-- The iframe will be injected by JS -->
 </div>
 
     <script>
@@ -1026,13 +1021,9 @@
             // Hide and reset music player by default
             const musicPlayer = document.getElementById('asmaa-music-player');
             if (musicPlayer) {
-                musicPlayer.style.display = 'none';
-                // Remove and re-add the iframe to stop playback
+                // Remove old iframe to stop playback
                 const oldIframe = musicPlayer.querySelector('iframe');
-                if (oldIframe) {
-                    oldIframe.remove();
-                    // Only re-add when showing Asmaa novel
-                }
+                if (oldIframe) oldIframe.remove();
             }
 
             if (novel === 'viego') {
@@ -1067,19 +1058,16 @@
                 document.getElementById('characters').style.display = 'none';
                 document.getElementById('chapters').style.display = 'none';
                 document.getElementById('asmaa-novel').scrollIntoView({ behavior: 'smooth' });
-                // Show and re-add the SoundCloud player
+                // Inject hidden SoundCloud player
                 if (musicPlayer) {
-                    musicPlayer.style.display = 'block';
-                    if (!musicPlayer.querySelector('iframe')) {
-                        const iframe = document.createElement('iframe');
-                        iframe.width = "100%";
-                        iframe.height = "166";
-                        iframe.scrolling = "no";
-                        iframe.frameBorder = "no";
-                        iframe.allow = "autoplay";
-                        iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/tearsofmysuicide/cut-yourself&color=%23c9aa71&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true";
-                        musicPlayer.insertBefore(iframe, musicPlayer.firstChild);
-                    }
+                    const iframe = document.createElement('iframe');
+                    iframe.width = "1";
+                    iframe.height = "1";
+                    iframe.scrolling = "no";
+                    iframe.frameBorder = "no";
+                    iframe.allow = "autoplay";
+                    iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/tearsofmysuicide/cut-yourself&auto_play=true&show_artwork=false&show_comments=false&show_user=false&show_reposts=false&visual=false";
+                    musicPlayer.appendChild(iframe);
                 }
             }
         }

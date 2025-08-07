@@ -13,12 +13,23 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --gold: #c9aa71;
+            --dark-gold: #8a6d3b;
+            --light-text: #e8e0d0;
+            --dark-bg: #0a0806;
+            --darker-bg: #12100e;
+            --card-bg: #1a1715;
+            --border-color: #3a2e1f;
+        }
+        
         body {
             font-family: 'Cinzel', serif;
-            background-color: #0a0806;
-            color: #e8e0d0;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
             line-height: 1.6;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
         
         /* Navigation */
@@ -27,20 +38,32 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 5%;
-            background-color: rgba(10, 8, 6, 0.9);
+            background-color: rgba(10, 8, 6, 0.95);
             position: fixed;
             width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid #3a2e1f;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            background-color: rgba(10, 8, 6, 0.98);
         }
         
         .logo h1 {
             font-size: 1.8rem;
-            background: linear-gradient(90deg, #c9aa71, #e8e0d0);
+            background: linear-gradient(90deg, var(--gold), var(--light-text));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-shadow: 0 0 10px rgba(201, 170, 113, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled .logo h1 {
+            font-size: 1.5rem;
         }
         
         .nav-links {
@@ -49,15 +72,16 @@
         }
         
         .nav-links a {
-            color: #c9aa71;
+            color: var(--gold);
             text-decoration: none;
             font-size: 1.1rem;
             transition: all 0.3s ease;
             position: relative;
+            font-weight: 500;
         }
         
         .nav-links a:hover {
-            color: #e8e0d0;
+            color: var(--light-text);
         }
         
         .nav-links a::after {
@@ -67,7 +91,7 @@
             height: 2px;
             bottom: -5px;
             left: 0;
-            background-color: #c9aa71;
+            background-color: var(--gold);
             transition: width 0.3s ease;
         }
         
@@ -85,30 +109,46 @@
             justify-content: center;
             text-align: center;
             padding: 0 5%;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, var(--dark-bg) 70%);
         }
         
         .hero-content {
             max-width: 800px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
         }
         
         .hero h2 {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            color: #e8e0d0;
+            color: var(--light-text);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
         }
         
         .hero p {
             font-size: 1.3rem;
             margin-bottom: 2.5rem;
-            color: #c9aa71;
+            color: var(--gold);
+            font-family: 'MedievalSharp', cursive;
         }
         
         .btn {
             display: inline-block;
             padding: 0.8rem 2rem;
-            background: linear-gradient(135deg, #c9aa71, #8a6d3b);
-            color: #0a0806;
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            color: var(--dark-bg);
             text-decoration: none;
             border-radius: 4px;
             font-weight: bold;
@@ -117,6 +157,8 @@
             cursor: pointer;
             font-size: 1.1rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
         
         .btn:hover {
@@ -124,45 +166,87 @@
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
         }
         
-        /* Add this to your <style> section for better button appearance */
-        /* ...existing code... */
-#novel-selector .btn {
-    min-width: 220px;
-    font-size: 1.15rem;
-    margin: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    font-family: 'Cinzel', serif;   /* Add this line */
-    font-weight: bold;              /* Add this line */
-}
-/* ...existing code... */
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .btn:hover::after {
+            transform: translateX(100%);
+        }
+        
+        /* Novel Selector Buttons */
+        #novel-selector {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        #novel-selector .btn {
+            min-width: 220px;
+            font-size: 1.15rem;
+            margin: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+        }
         
         /* Chapters Section */
         .chapters {
-            padding: 6rem 5%;
-            background-color: #12100e;
+            padding: 8rem 5% 6rem;
+            background-color: var(--darker-bg);
         }
         
         .section-header {
             text-align: center;
             margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .section-header.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .section-header h2 {
             font-size: 2.5rem;
-            color: #e8e0d0;
+            color: var(--light-text);
             margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
         }
         
-        .divider {
-            width: 100px;
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
             height: 3px;
-            background: linear-gradient(90deg, #c9aa71, #8a6d3b);
-            margin: 0 auto 1.5rem;
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
         }
         
         .section-header p {
-            color: #c9aa71;
+            color: var(--gold);
             font-size: 1.2rem;
+            font-family: 'MedievalSharp', cursive;
+            margin-top: 1.5rem;
         }
         
         .chapter-list {
@@ -172,29 +256,43 @@
         }
         
         .chapter-card {
-            background-color: #1a1715;
+            background-color: var(--card-bg);
             border-radius: 8px;
             overflow: hidden;
             transition: all 0.3s ease;
-            border: 1px solid #3a2e1f;
+            border: 1px solid var(--border-color);
             cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+        
+        .chapter-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .chapter-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border-color: #c9aa71;
+            border-color: var(--gold);
         }
         
         .chapter-card h3 {
             font-size: 1.5rem;
             padding: 1.5rem 1.5rem 0;
-            color: #e8e0d0;
+            color: var(--light-text);
+            transition: color 0.3s ease;
+        }
+        
+        .chapter-card:hover h3 {
+            color: var(--gold);
         }
         
         .chapter-card p {
             padding: 1rem 1.5rem;
-            color: #c9aa71;
+            color: var(--gold);
+            font-family: 'MedievalSharp', cursive;
         }
         
         .chapter-footer {
@@ -202,56 +300,85 @@
             background-color: #1e1a16;
             display: flex;
             justify-content: flex-end;
+            border-top: 1px solid var(--border-color);
         }
         
         .read-more {
-            color: #c9aa71;
+            color: var(--gold);
             font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .read-more::after {
+            content: '→';
+            margin-left: 5px;
             transition: all 0.3s ease;
         }
         
         .chapter-card:hover .read-more {
-            color: #e8e0d0;
+            color: var(--light-text);
+        }
+        
+        .chapter-card:hover .read-more::after {
+            transform: translateX(3px);
         }
         
         /* Chapter Content */
         .chapter-content {
             display: none;
-            padding: 6rem 5%;
-            background-color: #12100e;
+            padding: 8rem 5% 6rem;
+            background-color: var(--darker-bg);
             min-height: 100vh;
         }
         
         .chapter-container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #1a1715;
+            background-color: var(--card-bg);
             padding: 3rem;
             border-radius: 8px;
-            border: 1px solid #3a2e1f;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         
-        #chapter-title {
+        #chapter-title, #asmaa-chapter-title {
             font-size: 2.2rem;
-            color: #e8e0d0;
+            color: var(--light-text);
             margin-bottom: 1.5rem;
             text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        #chapter-title::after, #asmaa-chapter-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
         }
         
         .chapter-text {
             font-size: 1.1rem;
-            color: #e8e0d0;
+            color: var(--light-text);
             line-height: 1.8;
+            font-family: 'MedievalSharp', cursive;
         }
         
         .chapter-text p {
             margin-bottom: 1.5rem;
+            text-align: justify;
         }
         
         .btn-back {
             background: none;
             border: none;
-            color: #c9aa71;
+            color: var(--gold);
             font-size: 1rem;
             cursor: pointer;
             margin-bottom: 2rem;
@@ -259,17 +386,29 @@
             border-radius: 4px;
             transition: all 0.3s ease;
             font-family: 'Cinzel', serif;
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn-back::before {
+            content: '←';
+            margin-right: 5px;
+            transition: all 0.3s ease;
         }
         
         .btn-back:hover {
             background-color: rgba(201, 170, 113, 0.1);
-            color: #e8e0d0;
+            color: var(--light-text);
+        }
+        
+        .btn-back:hover::before {
+            transform: translateX(-3px);
         }
         
         /* Characters Section */
         .characters {
             padding: 6rem 5%;
-            background-color: #0a0806;
+            background-color: var(--dark-bg);
         }
         
         .character-gallery {
@@ -279,17 +418,24 @@
         }
         
         .character-card {
-            background-color: #12100e;
+            background-color: var(--darker-bg);
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #3a2e1f;
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .character-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .character-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border-color: #c9aa71;
+            border-color: var(--gold);
         }
         
         .character-image {
@@ -305,12 +451,11 @@
             transition: transform 0.5s ease;
         }
         
-        /* Add this to your <style> section to adjust the image position for Anas */
+        /* Adjust image positions for specific characters */
         .character-image img[alt="Anas"] {
             object-position: center 25%;
         }
         
-        /* Move the image down a bit for Asmaa & Anas cards */
         .character-image img[alt="Asmaa"],
         .character-image img[alt="Anas"] {
             object-position: center 15%;
@@ -331,13 +476,14 @@
         
         .character-overlay h3 {
             font-size: 1.8rem;
-            color: #e8e0d0;
+            color: var(--light-text);
             margin-bottom: 0.5rem;
         }
         
         .character-overlay p {
-            color: #c9aa71;
+            color: var(--gold);
             font-style: italic;
+            font-family: 'MedievalSharp', cursive;
         }
         
         .character-info {
@@ -346,7 +492,8 @@
         
         .character-info p {
             margin-bottom: 1rem;
-            color: #e8e0d0;
+            color: var(--light-text);
+            font-family: 'MedievalSharp', cursive;
         }
         
         .character-traits {
@@ -356,48 +503,113 @@
         }
         
         .trait {
-            background-color: #1a1715;
+            background-color: var(--card-bg);
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.9rem;
-            color: #c9aa71;
-            border: 1px solid #3a2e1f;
+            color: var(--gold);
+            border: 1px solid var(--border-color);
+            font-family: 'MedievalSharp', cursive;
         }
         
         /* About Section */
         .about {
             padding: 6rem 5%;
-            background-color: #12100e;
+            background-color: var(--darker-bg);
             text-align: center;
         }
         
         .about-content {
             max-width: 800px;
             margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .about-content.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .about h3 {
             font-size: 1.8rem;
-            color: #e8e0d0;
+            color: var(--light-text);
             margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
         }
         
         .about p {
-            color: #e8e0d0;
+            color: var(--light-text);
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
+            font-family: 'MedievalSharp', cursive;
         }
         
         /* Footer */
         footer {
-            background-color: #0a0806;
+            background-color: var(--dark-bg);
             padding: 2rem 5%;
             text-align: center;
-            border-top: 1px solid #3a2e1f;
+            border-top: 1px solid var(--border-color);
         }
         
         footer p {
-            color: #c9aa71;
+            color: var(--gold);
+            font-family: 'MedievalSharp', cursive;
+        }
+        
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            color: var(--light-text);
+            text-decoration: underline;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--light-text);
         }
         
         /* Responsive Design */
@@ -405,6 +617,14 @@
             .navbar {
                 flex-direction: column;
                 padding: 1rem;
+            }
+            
+            .navbar.scrolled {
+                padding: 0.8rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
             }
             
             .nav-links {
@@ -421,18 +641,13 @@
                 justify-content: center;
             }
             
-            .hero-content {
-                max-width: 100%;
-                width: 100%;
-            }
-            
             .hero h2 {
-                font-size: 2rem;
+                font-size: 2.5rem;
                 margin-bottom: 1rem;
             }
             
             .hero p {
-                font-size: 1rem;
+                font-size: 1.1rem;
                 margin-bottom: 1.5rem;
             }
             
@@ -445,7 +660,7 @@
             }
             
             #novel-selector .btn {
-                width: 90vw;
+                width: 100%;
                 min-width: unset;
                 font-size: 1rem;
                 margin: 0 auto;
@@ -460,29 +675,41 @@
             .chapter-list, .character-gallery {
                 grid-template-columns: 1fr;
             }
+            
+            .chapter-container {
+                padding: 2rem;
+            }
+            
+            #chapter-title, #asmaa-chapter-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Remove or comment out the AdSense Ad Unit Example to remove the black bar -->
-    <!--
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-7336372781083421"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-    -->
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>A Tale of Love and Ruin</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#chapters">Chapters</a>
+            <a href="#characters">Characters</a>
+            <a href="#about">About</a>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h2>A Tale of Love and Ruin</h2>
             <p>The tragic fall of the Ruined King in the world of Runeterra</p>
-            <!-- <a href="#chapters" class="btn">Begin Reading</a> --> <!-- Removed Begin Reading button -->
-            <div id="novel-selector" style="margin-top:30px; display: flex; justify-content: center; gap: 20px;">
+            <div id="novel-selector">
                 <button class="btn" onclick="showNovel('viego')" id="btn-viego">Viego: The Broken Crown</button>
                 <button class="btn" onclick="showNovel('asmaa')" id="btn-asmaa">Asmaa & Anas: Soulmates</button>
             </div>
@@ -493,83 +720,82 @@
     <section id="chapters" class="chapters">
         <div class="section-header">
             <h2>The Chronicles of Viego</h2>
-            <div class="divider"></div>
             <p>Follow the descent into madness chapter by chapter</p>
         </div>
         <div class="chapter-list">
-            <div class="chapter-card" onclick="showChapter(1)">
+            <div class="chapter-card">
                 <h3>Chapter 1: The King in the Mirror</h3>
                 <p>Before the ruin, before the madness—Viego was a man of gold and light.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(2)">
+            <div class="chapter-card">
                 <h3>Chapter 2: The Plague and the Plea</h3>
                 <p>Isolde's illness was sudden and cruel. Viego would defy death itself to save her.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(3)">
+            <div class="chapter-card">
                 <h3>Chapter 3: The Shatter and the Ruin</h3>
                 <p>The Ruination began with a scream. The love he tried to save became his curse.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(4)">
+            <div class="chapter-card">
                 <h3>Chapter 4: The Wraith and the War</h3>
                 <p>Centuries passed. Legends spread. The Ruined King walked again.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(5)">
+            <div class="chapter-card">
                 <h3>Chapter 5: The Pieces of Her</h3>
                 <p>The world was vast, but his pain was greater. Viego hunted whispers of her soul across Runeterra.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(6)">
+            <div class="chapter-card">
                 <h3>Chapter 6: The Puppet with Scissors</h3>
-                <p>In a forgotten village, Gwen awakens—Isolde’s creation, wielding the Hallowed Mist against ruin.</p>
+                <p>In a forgotten village, Gwen awakens—Isolde's creation, wielding the Hallowed Mist against ruin.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(7)">
-                <h3>Chapter 7: Lucian’s Shadow</h3>
+            <div class="chapter-card">
+                <h3>Chapter 7: Lucian's Shadow</h3>
                 <p>Lucian and Senna rally the Sentinels, seeking to save Viego from the Mist and himself.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(8)">
-                <h3>Chapter 8: Thresh’s Game</h3>
-                <p>Thresh manipulates fate from the shadows, holding the final fragment of Isolde’s soul.</p>
+            <div class="chapter-card">
+                <h3>Chapter 8: Thresh's Game</h3>
+                <p>Thresh manipulates fate from the shadows, holding the final fragment of Isolde's soul.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(9)">
+            <div class="chapter-card">
                 <h3>Chapter 9: The Last Fragment</h3>
-                <p>The final piece of Isolde’s soul. The fate of Runeterra hangs in the balance.</p>
+                <p>The final piece of Isolde's soul. The fate of Runeterra hangs in the balance.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(10)">
+            <div class="chapter-card">
                 <h3>Chapter 10: Crown of Ash</h3>
-                <p>The end of the Ruined King’s journey. Love, loss, and the breaking of the curse.</p>
+                <p>The end of the Ruined King's journey. Love, loss, and the breaking of the curse.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showChapter(11)">
+            <div class="chapter-card">
                 <h3>Epilogue: The Garden Restored</h3>
-                <p>After ruin, hope. The world heals, and Viego’s story becomes legend.</p>
+                <p>After ruin, hope. The world heals, and Viego's story becomes legend.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
@@ -578,9 +804,9 @@
     </section>
 
     <!-- Chapter Content Section -->
-    <section id="chapter-content" class="chapter-content" style="display: none;">
+    <section id="chapter-content" class="chapter-content">
         <div class="chapter-container">
-            <button class="btn-back" onclick="hideChapter()">← Back to Chapters</button>
+            <button class="btn-back">Back to Chapters</button>
             <h2 id="chapter-title"></h2>
             <div id="chapter-text" class="chapter-text"></div>
         </div>
@@ -590,32 +816,31 @@
     <section id="asmaa-novel" class="chapters" style="display:none;">
         <div class="section-header">
             <h2>Asmaa & Anas: Soulmates</h2>
-            <div class="divider"></div>
             <p>A story of two souls who meet and love each other deeply</p>
         </div>
         <div class="chapter-list">
-            <div class="chapter-card" onclick="showAsmaaChapter(1)">
+            <div class="chapter-card">
                 <h3>Chapter 1: The Meeting</h3>
                 <p>Asmaa and Anas meet by chance, and the world feels new.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showAsmaaChapter(2)">
+            <div class="chapter-card">
                 <h3>Chapter 2: Soul Connection</h3>
                 <p>They discover a bond that feels destined, deeper than words.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showAsmaaChapter(3)">
+            <div class="chapter-card">
                 <h3>Chapter 3: Love Grows</h3>
                 <p>Through laughter and tears, their love grows stronger every day.</p>
                 <div class="chapter-footer">
                     <span class="read-more">Read Chapter</span>
                 </div>
             </div>
-            <div class="chapter-card" onclick="showAsmaaChapter(4)">
+            <div class="chapter-card">
                 <h3>Epilogue: Forever Together</h3>
                 <p>Asmaa and Anas, soulmates, walk through life hand in hand.</p>
                 <div class="chapter-footer">
@@ -628,7 +853,7 @@
     <!-- Asmaa Chapter Content Section (Hidden by Default) -->
     <section id="asmaa-chapter-content" class="chapter-content" style="display:none;">
         <div class="chapter-container">
-            <button class="btn-back" onclick="hideAsmaaChapter()">← Back to Chapters</button>
+            <button class="btn-back">Back to Chapters</button>
             <h2 id="asmaa-chapter-title"></h2>
             <div id="asmaa-chapter-text" class="chapter-text"></div>
         </div>
@@ -638,7 +863,6 @@
     <section id="characters" class="characters">
         <div class="section-header">
             <h2>Dramatis Personae</h2>
-            <div class="divider"></div>
             <p>The key figures in Viego's tragic tale</p>
         </div>
         <div class="character-gallery">
@@ -717,7 +941,6 @@
     <section id="asmaa-characters" class="characters" style="display:none;">
         <div class="section-header">
             <h2>Dramatis Personae: Asmaa & Anas</h2>
-            <div class="divider"></div>
             <p>The key figures in the Soulmates novel</p>
         </div>
         <div class="character-gallery">
@@ -762,10 +985,9 @@
     <section id="about" class="about">
         <div class="section-header" id="about-header">
             <h2 id="about-title">The Lore of Camavor</h2>
-            <div class="divider"></div>
             <p id="about-desc">Explore the world behind the tragedy</p>
         </div>
-        <div class="about-content" id="about-content">
+        <div class="about-content">
             <h3 id="about-subtitle">The Fall of a Kingdom</h3>
             <p id="about-main">
                 "Viego: The Broken Crown" is a dark fantasy novel set in the world of League of Legends' Runeterra. It explores the tragic fall of King Viego, his descent into madness, and the catastrophic Ruination that followed.
@@ -779,16 +1001,16 @@
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 Viego: The Broken Crown. All rights reserved.</p>
-        <p>Site by Anas Zaami (<a href="https://instagram.com/fly_ethr" target="_blank" style="color:#c9aa71;">@fly_ethr</a>) &mdash; Dedicated to Asmaa ❤️</p>
+        <p>Site by Anas Zaami (<a href="https://instagram.com/fly_ethr" target="_blank">@fly_ethr</a>) &mdash; Dedicated to Asmaa ❤️</p>
     </footer>
 
-    <!-- Replace your <audio> tag with this div (put it before </body>) -->
-<div id="asmaa-music-player" style="width:1px;height:1px;overflow:hidden;opacity:0;position:absolute;left:-9999px;top:-9999px;">
-    <!-- The iframe will be injected by JS -->
-</div>
-<button id="asmaa-music-play-btn" style="display:none;position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:9999;padding:12px 28px;font-size:1.2rem;background:#c9aa71;color:#0a0806;border-radius:6px;border:none;box-shadow:0 2px 8px #000;cursor:pointer;">
-    Play Soulmates Music
-</button>
+    <!-- Music Player -->
+    <div id="asmaa-music-player" style="width:1px;height:1px;overflow:hidden;opacity:0;position:absolute;left:-9999px;top:-9999px;">
+        <!-- The iframe will be injected by JS -->
+    </div>
+    <button id="asmaa-music-play-btn" style="display:none;position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:9999;padding:12px 28px;font-size:1.2rem;background:var(--gold);color:var(--dark-bg);border-radius:6px;border:none;box-shadow:0 2px 8px #000;cursor:pointer;">
+        Play Soulmates Music
+    </button>
 
     <script>
         // Viego chapters
@@ -819,7 +1041,6 @@
                 content: `
                     <p>Her scream cracked the heavens. The divine waters, never meant for mortals, reacted with violent magic. Light turned black. Hope became rot. And Viego... changed.</p>
                     <p>The Ruination began there. The love he tried to save became the curse that damned him.</p>
-                   
                 `
             },
             4: {
@@ -847,36 +1068,36 @@
                 title: "Chapter 6: The Puppet with Scissors",
                 content: `
                     <p>In a forgotten village overgrown with vines and moonflowers, a strange light resisted the Mist.<br>
-                    There, a doll stirred—a creation of Isolde’s last days. Her name was Gwen.</p>
-                    <p>Infused with the soul and memories of the queen she once served, Gwen wielded the Hallowed Mist, the only magic untouched by corruption. Where Viego’s blackened Mist brought decay, hers brought life and clarity.</p>
+                    There, a doll stirred—a creation of Isolde's last days. Her name was Gwen.</p>
+                    <p>Infused with the soul and memories of the queen she once served, Gwen wielded the Hallowed Mist, the only magic untouched by corruption. Where Viego's blackened Mist brought decay, hers brought life and clarity.</p>
                     <p>She remembered only fragments. A wedding dress. Laughter in the gardens. A king who looked at Isolde as if the stars had bent for her alone.</p>
                     <p>When Viego arrived, Gwen did not flee.<br>
-                    She stood in the garden with scissors glowing in hand and said, “You loved her. I loved her. But what you’ve become is not love—it’s ruin.”</p>
+                    She stood in the garden with scissors glowing in hand and said, "You loved her. I loved her. But what you've become is not love—it's ruin."</p>
                     <p>They fought beneath a sky split in half—one side dark with ruin, the other lit by memory.<br>
                     And Gwen escaped. But not before seeing the sadness in his eyes… the truth behind the monster.</p>
                 `
             },
             7: {
-                title: "Chapter 7: Lucian’s Shadow",
+                title: "Chapter 7: Lucian's Shadow",
                 content: `
-                    <p>Lucian, the gunslinger, once chased shadows for justice. But now, he hunted only one ghost—the man who had taken Senna’s soul into darkness.</p>
-                    <p>Together with Senna, who had been freed from Thresh’s lantern but not from pain, they traveled across ruined lands, rallying the Sentinels of Light once again.</p>
-                    <p>“We don’t need to kill him,” Senna said one night by firelight. “We need to stop him. To reach what’s left of the man.”</p>
-                    <p>Lucian gritted his teeth. “There’s nothing left.”</p>
+                    <p>Lucian, the gunslinger, once chased shadows for justice. But now, he hunted only one ghost—the man who had taken Senna's soul into darkness.</p>
+                    <p>Together with Senna, who had been freed from Thresh's lantern but not from pain, they traveled across ruined lands, rallying the Sentinels of Light once again.</p>
+                    <p>"We don't need to kill him," Senna said one night by firelight. "We need to stop him. To reach what's left of the man."</p>
+                    <p>Lucian gritted his teeth. "There's nothing left."</p>
                     <p>But Senna had seen something in the Mist—an image of Isolde, eyes wide with fear, and a faint whisper:<br>
-                    “He’s not whole. He cannot control it.”</p>
+                    "He's not whole. He cannot control it."</p>
                     <p>The war was no longer just against Viego. It was against the Mist itself, a force that used the king as its host. They would need allies. Magic. And hope. But time was running out.</p>
                 `
             },
             8: {
-                title: "Chapter 8: Thresh’s Game",
+                title: "Chapter 8: Thresh's Game",
                 content: `
                     <p>In the deepest crypts of the Shadow Isles, a twisted lantern flickered.<br>
                     Thresh, the Chain Warden, laughed.</p>
                     <p>He had waited centuries, feeding on souls, manipulating fates. It was he who had manipulated Viego, nudged the king toward madness, and whispered lies into the sanctum that day Isolde was revived. Not for love—but for power.</p>
-                    <p>“The king thinks he commands the Mist,” Thresh hissed, speaking to the shadows. “But soon… it will command him.”</p>
+                    <p>"The king thinks he commands the Mist," Thresh hissed, speaking to the shadows. "But soon… it will command him."</p>
                     <p>Within his lantern danced a final fragment of Isolde—a piece Viego would never find, no matter how many lands he shattered.</p>
-                    <p>Thresh didn’t want to stop the Ruination. He wanted to finish it.<br>
+                    <p>Thresh didn't want to stop the Ruination. He wanted to finish it.<br>
                     With Viego as a puppet.</p>
                     <p>And when the final tear was shed and all of Runeterra was cloaked in death, it would be Thresh—not Viego—who would reign.</p>
                 `
@@ -886,17 +1107,17 @@
                 content: `
                     <p>The Black Mist swelled across Runeterra like a rising tide.</p>
                     <p>Viego stood at the edge of the Howling Abyss, the cold winds of the Freljord slicing through what little remained of his human form. His crown was tarnished. His robes, once royal, now flowed like tattered shadows.</p>
-                    <p>He had found all but one piece of Isolde’s soul.</p>
+                    <p>He had found all but one piece of Isolde's soul.</p>
                     <p>He could feel it—just beyond reach. His hands trembled as he whispered her name, over and over, like a dying prayer.</p>
-                    <p>“Isolde… I’m so close. Please…”</p>
+                    <p>"Isolde… I'm so close. Please…"</p>
                     <p>Behind him, the Sentinels gathered.</p>
                     <p>Lucian, Senna, Gwen, and a dozen warriors stood in silence. The world had watched Viego tear down everything in his path. But this moment… this final step… would decide whether the world ended or lived.</p>
                     <p>Thresh appeared from the shadows, grinning behind his mask of chains.</p>
-                    <p>“You poor fool,” the Warden hissed. “You were never the king. You were the key.”</p>
-                    <p>With a flick of his lantern, he unleashed the last fragment of Isolde’s soul—but twisted, corrupted by centuries of torment. It floated toward Viego like a flame in a storm.</p>
+                    <p>"You poor fool," the Warden hissed. "You were never the king. You were the key."</p>
+                    <p>With a flick of his lantern, he unleashed the last fragment of Isolde's soul—but twisted, corrupted by centuries of torment. It floated toward Viego like a flame in a storm.</p>
                     <p>The king reached for it.</p>
-                    <p>Gwen screamed, “No! It’s not her! She wouldn’t want this!”</p>
-                    <p>But he didn’t listen.</p>
+                    <p>Gwen screamed, "No! It's not her! She wouldn't want this!"</p>
+                    <p>But he didn't listen.</p>
                     <p>The moment he touched it—the world shattered.</p>
                 `
             },
@@ -908,21 +1129,21 @@
                     <p>Mountains groaned.</p>
                     <p>And Viego was lost in a dream.</p>
                     <p>He stood in the palace garden. The roses were white again. The wind was soft. And Isolde stood before him, untouched by time, smiling like she had the first day they met.</p>
-                    <p>“You came for me,” she whispered.</p>
+                    <p>"You came for me," she whispered.</p>
                     <p>He ran to her, tears in his eyes, but when he touched her cheek… his hand passed through.</p>
-                    <p>“You’re not real,” he choked.<br>
-                    “No,” she said gently, “but your love was. It just became something it was never meant to be.”</p>
+                    <p>"You're not real," he choked.<br>
+                    "No," she said gently, "but your love was. It just became something it was never meant to be."</p>
                     <p>Isolde leaned in. A kiss that never reached his lips. A goodbye that echoed across eternity.</p>
                     <p>And with that, the illusion collapsed.</p>
                     <p>In the real world, the Mist reversed.<br>
-                    The fragments of Isolde’s soul reunited—and then vanished, finally freed.</p>
-                    <p>The black crown on Viego’s head cracked.<br>
+                    The fragments of Isolde's soul reunited—and then vanished, finally freed.</p>
+                    <p>The black crown on Viego's head cracked.<br>
                     He fell to his knees, alone at last.</p>
                     <p>Lucian lowered his weapon.</p>
                     <p>Senna whispered a prayer.</p>
-                    <p>And Gwen, with tears in her eyes, stepped forward and closed the king’s eyes as he faded into shadow.</p>
-                    <p>“He was never the villain,” she said.<br>
-                    “Just a man… who couldn’t let go.”</p>
+                    <p>And Gwen, with tears in her eyes, stepped forward and closed the king's eyes as he faded into shadow.</p>
+                    <p>"He was never the villain," she said.<br>
+                    "Just a man… who couldn't let go."</p>
                 `
             },
             11: {
@@ -958,6 +1179,87 @@
             }
         };
 
+        // DOM Elements
+        const navbar = document.querySelector('.navbar');
+        const chapterCards = document.querySelectorAll('.chapter-card');
+        const characterCards = document.querySelectorAll('.character-card');
+        const sectionHeaders = document.querySelectorAll('.section-header');
+        const aboutContent = document.querySelector('.about-content');
+        
+        // Scroll event for navbar effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Check if elements are in viewport for animations
+            checkVisibility();
+        });
+        
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe elements
+        sectionHeaders.forEach(header => observer.observe(header));
+        chapterCards.forEach(card => observer.observe(card));
+        characterCards.forEach(card => observer.observe(card));
+        if (aboutContent) observer.observe(aboutContent);
+        
+        // Initial check for elements already in viewport
+        function checkVisibility() {
+            sectionHeaders.forEach(header => {
+                const rect = header.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    header.classList.add('visible');
+                }
+            });
+            
+            chapterCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    card.classList.add('visible');
+                }
+            });
+            
+            characterCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    card.classList.add('visible');
+                }
+            });
+            
+            if (aboutContent) {
+                const rect = aboutContent.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    aboutContent.classList.add('visible');
+                }
+            }
+        }
+        
+        // Initial check
+        checkVisibility();
+        
+        // Set up chapter card click events
+        document.querySelectorAll('#chapters .chapter-card').forEach((card, index) => {
+            card.addEventListener('click', () => showChapter(index + 1));
+        });
+        
+        document.querySelectorAll('#asmaa-novel .chapter-card').forEach((card, index) => {
+            card.addEventListener('click', () => showAsmaaChapter(index + 1));
+        });
+        
+        // Set up back button events
+        document.querySelector('#chapter-content .btn-back').addEventListener('click', hideChapter);
+        document.querySelector('#asmaa-chapter-content .btn-back').addEventListener('click', hideAsmaaChapter);
+        
         // Show Viego chapter
         function showChapter(chapterNumber) {
             document.querySelectorAll('section').forEach(section => {
@@ -983,7 +1285,7 @@
                 }
             });
             document.getElementById('chapter-content').style.display = 'none';
-            document.getElementById('chapters').scrollIntoView();
+            document.getElementById('chapters').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Show Asmaa chapter
@@ -1011,7 +1313,7 @@
                 }
             });
             document.getElementById('asmaa-chapter-content').style.display = 'none';
-            document.getElementById('asmaa-novel').scrollIntoView();
+            document.getElementById('asmaa-novel').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Novel switcher
@@ -1096,9 +1398,5 @@
             }
         }
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7336372781083421"
-        crossorigin="anonymous"></script>
 </body>
 </html>
-
-

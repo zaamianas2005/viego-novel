@@ -786,6 +786,9 @@
 <div id="asmaa-music-player" style="width:1px;height:1px;overflow:hidden;opacity:0;position:absolute;left:-9999px;top:-9999px;">
     <!-- The iframe will be injected by JS -->
 </div>
+<button id="asmaa-music-play-btn" style="display:none;position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:9999;padding:12px 28px;font-size:1.2rem;background:#c9aa71;color:#0a0806;border-radius:6px;border:none;box-shadow:0 2px 8px #000;cursor:pointer;">
+    Play Soulmates Music
+</button>
 
     <script>
         // Viego chapters
@@ -1020,11 +1023,12 @@
 
             // Hide and reset music player by default
             const musicPlayer = document.getElementById('asmaa-music-player');
+            const playBtn = document.getElementById('asmaa-music-play-btn');
             if (musicPlayer) {
-                // Remove old iframe to stop playback
                 const oldIframe = musicPlayer.querySelector('iframe');
                 if (oldIframe) oldIframe.remove();
             }
+            if (playBtn) playBtn.style.display = 'none';
 
             if (novel === 'viego') {
                 document.getElementById('about-title').textContent = "The Lore of Camavor";
@@ -1058,16 +1062,36 @@
                 document.getElementById('characters').style.display = 'none';
                 document.getElementById('chapters').style.display = 'none';
                 document.getElementById('asmaa-novel').scrollIntoView({ behavior: 'smooth' });
-                // Inject hidden SoundCloud player
-                if (musicPlayer) {
-                    const iframe = document.createElement('iframe');
-                    iframe.width = "1";
-                    iframe.height = "1";
-                    iframe.scrolling = "no";
-                    iframe.frameBorder = "no";
-                    iframe.allow = "autoplay";
-                    iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/tearsofmysuicide/cut-yourself&auto_play=true&show_artwork=false&show_comments=false&show_user=false&show_reposts=false&visual=false";
-                    musicPlayer.appendChild(iframe);
+
+                // Detect mobile
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                if (isMobile && playBtn) {
+                    playBtn.style.display = 'block';
+                    playBtn.onclick = function() {
+                        playBtn.style.display = 'none';
+                        if (musicPlayer) {
+                            const iframe = document.createElement('iframe');
+                            iframe.width = "1";
+                            iframe.height = "1";
+                            iframe.scrolling = "no";
+                            iframe.frameBorder = "no";
+                            iframe.allow = "autoplay";
+                            iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/tearsofmysuicide/cut-yourself&auto_play=true&show_artwork=false&show_comments=false&show_user=false&show_reposts=false&visual=false";
+                            musicPlayer.appendChild(iframe);
+                        }
+                    };
+                } else {
+                    // Desktop: autoplay as before
+                    if (musicPlayer) {
+                        const iframe = document.createElement('iframe');
+                        iframe.width = "1";
+                        iframe.height = "1";
+                        iframe.scrolling = "no";
+                        iframe.frameBorder = "no";
+                        iframe.allow = "autoplay";
+                        iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/tearsofmysuicide/cut-yourself&auto_play=true&show_artwork=false&show_comments=false&show_user=false&show_reposts=false&visual=false";
+                        musicPlayer.appendChild(iframe);
+                    }
                 }
             }
         }

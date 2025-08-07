@@ -408,12 +408,49 @@
                 gap: 1rem;
             }
             
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding: 3rem 2%;
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+                width: 100%;
+            }
+            
             .hero h2 {
-                font-size: 2.5rem;
+                font-size: 2rem;
+                margin-bottom: 1rem;
             }
             
             .hero p {
-                font-size: 1.1rem;
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            #novel-selector {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1.5rem;
+                width: 100%;
+                align-items: center;
+            }
+            
+            #novel-selector .btn {
+                width: 90vw;
+                min-width: unset;
+                font-size: 1rem;
+                margin: 0 auto;
+                box-sizing: border-box;
+            }
+            
+            .btn {
+                font-size: 1rem;
+                padding: 0.7rem 1rem;
             }
             
             .chapter-list, .character-gallery {
